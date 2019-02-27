@@ -1,5 +1,8 @@
 // The ideas are inspired by this chapter of Eloquent JavaScript:
 // https://eloquentjavascript.net/04_data.html
+import { render } from 'react-dom';
+import hey from './journal';
+
 let journal = [];
 
 // @events {Array} of {String}
@@ -48,3 +51,5 @@ function getUniqueEvents(journal) {
 
     return events;
 }
+
+render(hey, document.getElementById("dashboard"))
