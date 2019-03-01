@@ -1,5 +1,39 @@
-import React from 'react' ;
+import React, { Component } from 'react' ;
+import { phi, tableFor } from './phi';
 
-const hey = <div>Hello World</div>;
+class Journal extends Component {
+    constructor(props) {
+        super(props);
 
-export default hey;
+        this.state = {
+            entries: []
+        };
+    }
+
+    addEntry(events) {
+        this.setState((currentState, props) => {
+            return {
+                entries: currentState.entries.push({ events })
+            };
+        })
+    }
+
+    getUniqueEvents() {
+        let events = [];
+        for (let entry of this.state.entries) {
+            for (let event of entry.events) {
+                if (!events.includes(event)) {
+                    events.push(event);
+                }
+            }
+        }
+
+        return events;
+    }
+
+    render() {
+        return <div className="journal">I am a Journal</div>;
+    }
+}
+
+export default Journal;
