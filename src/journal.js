@@ -7,11 +7,14 @@ class Journal extends Component {
         super(props);
 
         this.state = {
-            entries: []
+            entries: [],
+            creatingPhiTable: false
         };
 
         this.addEntry = this.addEntry.bind(this);
         this.addEvent = this.addEvent.bind(this);
+        this.createPhiTable = this.createPhiTable.bind(this);
+        this.createTable = this.createTable.bind(this);
     }
 
     addEntry(e) {
@@ -39,6 +42,23 @@ class Journal extends Component {
         event.focus();
     }
 
+    createPhiTable(e) {
+        e.preventDefault();
+
+        this.setState({
+            creatingPhiTable: true
+        });
+    }
+
+    createTable(e) {
+        e.preventDefault();
+        const journal = e.target.closest('.journal');
+        const eventA = journal.querySelector('.event-a').value;
+        const eventB = journal.querySelector('.event-b').value;
+
+        console.log(tableFor(eventA, eventB, this.state.entries))
+    }
+
     getUniqueEvents() {
         let events = [];
         for (let entry of this.state.entries) {
@@ -63,6 +83,24 @@ class Journal extends Component {
                     <button className="add-event" onClick={this.addEvent}>+</button>
                 </form>
                 <button className="add-entry" onClick={this.addEntry}>Add Entry</button>
+                <button className="create-phi-table" onClick={this.createPhiTable}>Generate Correlation Table</button>
+
+                {
+                    this.state.creatingPhiTable ?
+                        <form className="correlate-events-form">
+                            <select className="event-a">
+                                {this.getUniqueEvents().map(event => <option key={event}>{event}</option>)}
+                            </select>
+                            <select className="event-b">
+                                {this.getUniqueEvents().map(event => <option key={event}>{event}</option>)}
+                            </select>
+                            <button onClick={this.createTable}>Generate Table</button>
+                        </form>
+                        :
+                        <div></div>
+                }
+
+
                 {entries}
             </div>
         );
