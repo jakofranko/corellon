@@ -6,8 +6,13 @@
 // With such a table, the phi coefficient can be expressed with
 // the following function:
 function phi(table) {
-    debugger;
-    return ((table[3] * table[0]) - (table[1] * table[2])) / Math.sqrt((table[2] + table[3]) * (table[0] + table[1]) * (table[1] + table[3]) * (table[0] + table[2]))
+    const top = ((table[3] * table[0]) - (table[1] * table[2]));
+    const bottom = Math.sqrt((table[2] + table[3]) * (table[0] + table[1]) * (table[1] + table[3]) * (table[0] + table[2]));
+
+    if (top === 0 && bottom === 0)
+        return 0;
+    else
+        return top / bottom;
 }
 
 // Generate a table [a, b, c, d] where a is the number of
