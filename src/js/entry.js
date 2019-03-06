@@ -7,7 +7,7 @@ class Entry extends Component {
         console.log(this.props)
         return (
             <div className="entry">
-                <h2>Entry</h2>
+                <h2 className="mb2">Entry</h2>
                 <ul>
                     {this.props.events.map((event) => <li key={event}>{event}</li>)}
                 </ul>
