@@ -19,6 +19,7 @@
   "homepage": "https://github.com/jakofranko/corellon#readme",
   "dependencies": {
     "css-loader": "^2.1.0",
+    "macian": "^1.0.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-hot-loader": "^4.7.1",
