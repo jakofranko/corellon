@@ -10,7 +10,7 @@ class EntryForm extends Component {
     addEvent(e) {
         e.preventDefault();
         let event = document.createElement("input");
-        event.classList = "new-event";
+        event.classList = "new-event p1";
         event.placeholder = "Event";
 
         e.target.closest(".new-events").prepend(event);
@@ -19,8 +19,8 @@ class EntryForm extends Component {
 
     render() {
         return (
-            <div className="entry-form c6 c6-m">
-                <h2 className="mb2">New Entry</h2>
+            <div className="entry-form c6">
+                <h2 className="mb2 lhs">New Entry</h2>
                 <div className="new-events">
                     <input className="new-event p1" placeholder="Event" />
                     <button className="add-event p2" onClick={this.addEvent}>+</button>

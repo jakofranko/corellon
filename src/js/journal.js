@@ -34,7 +34,7 @@ class Journal extends Component {
         const entries = this.state.entries.map((entry, index) => <Entry key={index} events={entry.events} />);
         return (
             <div className="journal">
-                <h1 className="mb3">Journal</h1>
+                <h1 className="mb3 lhs">Journal</h1>
                 <div className="r">
                     <EntryForm addEntry={this.addEntry} />
                     <CorrelationTable entries={this.state.entries} />
