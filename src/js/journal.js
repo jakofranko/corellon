@@ -2,14 +2,32 @@ import React, { Component } from 'react' ;
 import EntryForm from './entry-form';
 import Entry from './entry';
 import CorrelationTable from './correlation-table';
+import { generateId } from './utils';
 
+// TODO: Add journal names and UI/UX for changing names
 class Journal extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            entries: [],
-        };
+        const storage = localStorage.getItem(props.journalId);
+        const data = storage ? JSON.parse(storage) : null;
+
+        if (data) {
+            this.state = {
+                entries: data.entries
+            };
+
+            this.id = props.journalId;
+        } else {
+            this.state = {
+                entries: []
+            };
+
+            this.id = `journal-${generateId()}`;
+
+            // Save this journal
+            localStorage.setItem(this.id, JSON.stringify(this.state));
+        }
 
         this.addEntry = this.addEntry.bind(this);
     }
@@ -24,7 +42,7 @@ class Journal extends Component {
             return {
                 entries: newEntries
             };
-        });
+        }, () => localStorage.setItem(this.id, JSON.stringify(this.state)));
 
         journal.querySelectorAll(".new-event").forEach((el) => el.remove());
     }
