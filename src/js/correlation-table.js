@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { phi, tableFor } from './phi';
 
+// TODO: Add sorting
 class CorrelationTable extends Component {
     constructor(props) {
         super(props);
