@@ -30,6 +30,7 @@ class Journal extends Component {
         }
 
         this.addEntry = this.addEntry.bind(this);
+        this.deleteEntry = this.deleteEntry.bind(this);
     }
 
     addEntry(e) {
@@ -47,9 +48,21 @@ class Journal extends Component {
         journal.querySelectorAll(".new-event").forEach((el) => el.remove());
     }
 
+    deleteEntry(entry) {
+        this.setState((currentState, props) => {
+            const index = currentState.entries.indexOf(entry);
+            if (index > -1) {
+                currentState.entries.splice(index, 1);
+                return {
+                    entries: currentState.entries
+                };
+            }
+        }, () => localStorage.setItem(this.id, JSON.stringify(this.state)));
+    }
+
 
     render() {
-        const entries = this.state.entries.map((entry, index) => <Entry key={index} events={entry.events} />);
+        const entries = this.state.entries.map((entry, index) => <Entry key={generateId()} entry={entry} deleteEntry={this.deleteEntry} />);
         return (
             <div className="journal">
                 <h1 className="mb3 lhs">Journal</h1>

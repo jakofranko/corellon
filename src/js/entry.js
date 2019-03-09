@@ -4,13 +4,34 @@ import React, { Component } from 'react';
 // and a time e.g., <Entry events=[events] />
 // TODO: UI/UX for deleting entries and events
 class Entry extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            events: props.entry.events
+        };
+
+        this.checkDelete = this.checkDelete.bind(this);
+    }
+
+    checkDelete(e) {
+        e.preventDefault();
+        const sure = confirm("Are you sure you want to delete this entry?");
+
+        if (sure)
+            this.props.deleteEntry(this.props.entry);
+    }
+
     render() {
         console.log(this.props)
         return (
             <div className="entry">
-                <h2 className="mb2 lhs">Entry</h2>
+                <h2 className="mb2 lhs">
+                    Entry
+                    <button onClick={this.checkDelete}>Delete</button>
+                </h2>
                 <ul>
-                    {this.props.events.map((event) => <li key={event}>{event}</li>)}
+                    {this.state.events.map((event) => <li key={event}>{event}</li>)}
                 </ul>
             </div>
         );
