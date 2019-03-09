@@ -67,10 +67,14 @@ class Journal extends Component {
             <div className="journal">
                 <h1 className="mb3 lhs">Journal</h1>
                 <div className="r">
-                    <EntryForm addEntry={this.addEntry} />
-                    <CorrelationTable entries={this.state.entries} />
+                    <div className="c6">
+                        <EntryForm addEntry={this.addEntry} />
+                        <CorrelationTable entries={this.state.entries} />
+                    </div>
+                    <div className="c6">
+                        {entries}
+                    </div>
                 </div>
-                {entries}
             </div>
         );
     }

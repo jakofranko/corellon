@@ -25,7 +25,7 @@ class Entry extends Component {
     render() {
         console.log(this.props)
         return (
-            <div className="entry">
+            <div className="entry p3">
                 <h2 className="mb2 lhs">
                     Entry
                     <button onClick={this.checkDelete}>Delete</button>
@@ -33,6 +33,7 @@ class Entry extends Component {
                 <ul>
                     {this.state.events.map((event) => <li key={event}>{event}</li>)}
                 </ul>
+                <hr className="mv4" />
             </div>
         );
     }

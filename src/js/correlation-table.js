@@ -49,7 +49,7 @@ class CorrelationTable extends Component {
         });
 
         return (
-            <div className='correlation-table c6'>
+            <div className='correlation-table'>
                 <label className="db mb1">Select Event to Display Correlations Against</label>
                 <select className="correlation-event db mb1" onChange={this.handleChange}>
                     {eventOptions}
