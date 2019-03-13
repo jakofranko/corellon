@@ -33,6 +33,8 @@ class Journal extends Component {
         this.deleteEntry = this.deleteEntry.bind(this);
     }
 
+    // TODO: Have the EntryForm handle its own DOM manipulation
+    // TODO: Use state from EntryForm instead of directly pulling values from inputs
     addEntry(e) {
         const journal = e.target.closest(".journal");
         let events = [];
