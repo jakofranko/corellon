@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { phi, tableFor } from './phi';
 
 // TODO: Add sorting
+// TODO: Filter considered entries by entries with multiple events, and entries without multiple events
 class CorrelationTable extends Component {
     constructor(props) {
         super(props);

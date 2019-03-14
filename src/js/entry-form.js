@@ -26,7 +26,6 @@ class EntryForm extends Component {
         } else if (e.key === 'Enter') {
             e.preventDefault();
             this.props.addEntry(e);
-            this.addEvent(e);
         }
     }
 
