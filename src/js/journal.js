@@ -29,19 +29,45 @@ class Journal extends Component {
             localStorage.setItem(this.id, JSON.stringify(this.state));
         }
 
+        this.editJournalName = this.editJournalName.bind(this);
+        this.updateJournalName = this.updateJournalName.bind(this);
         this.addEntry = this.addEntry.bind(this);
         this.deleteEntry = this.deleteEntry.bind(this);
+    }
+
+    editJournalName(e) {
+        e.preventDefault();
+        this.setState({
+            editingName: true
+        });
+    }
+
+    updateJournalName(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.setState({
+                editingName: false,
+                name: e.target.value
+            }, () => localStorage.setItem(this.id, JSON.stringify(this.state)));
+        } else if (e.key === 'Escape') {
+            this.setState({
+                editingName: false
+            });
+        }
     }
 
     // TODO: Have the EntryForm handle its own DOM manipulation
     // TODO: Use state from EntryForm instead of directly pulling values from inputs
     addEntry(e) {
         const journal = e.target.closest(".journal");
+        const timestamp = Date.now();
+
         let events = [];
+
         document.querySelectorAll('.new-event').forEach((el) => events.push(el.value));
 
         this.setState((currentState, props) => {
-            const newEntries = currentState.entries.concat([{ events }])
+            const newEntries = currentState.entries.concat([{ events, timestamp }])
             return {
                 entries: newEntries
             };

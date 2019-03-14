@@ -8,10 +8,12 @@ class Entry extends Component {
         super(props);
 
         this.state = {
-            events: props.entry.events
+            events: props.entry.events,
+            timestamp: props.entry.timestamp
         };
 
         this.checkDelete = this.checkDelete.bind(this);
+        this.formatDate = this.formatDate.bind(this);
     }
 
     checkDelete(e) {
@@ -22,12 +24,20 @@ class Entry extends Component {
             this.props.deleteEntry(this.props.entry);
     }
 
+    formatDate(timestamp) {
+        const date = new Date(timestamp);
+        return `${date.getMonth() + 1}/${date.getDay()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    }
+
     render() {
-        console.log(this.props)
         return (
             <div className="entry p3">
                 <h2 className="mb2 lhs">
-                    Entry
+                    {
+                        this.state.timestamp
+                        ? this.formatDate(this.state.timestamp)
+                        : "Entry"
+                    }
                     <button onClick={this.checkDelete}>Delete</button>
                 </h2>
                 <ul>
