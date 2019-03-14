@@ -1,4 +1,6 @@
 import React, { Component } from 'react' ;
+
+import JournalName from './journal-name';
 import EntryForm from './entry-form';
 import Entry from './entry';
 import CorrelationTable from './correlation-table';
@@ -14,7 +16,10 @@ class Journal extends Component {
 
         if (data) {
             this.state = {
-                entries: data.entries
+                entries: data.entries,
+                name: data.name || "Journal",
+                editingName: false,
+                open: false
             };
 
             this.id = props.journalId;
@@ -93,7 +98,13 @@ class Journal extends Component {
         const entries = this.state.entries.map((entry, index) => <Entry key={generateId()} entry={entry} deleteEntry={this.deleteEntry} />);
         return (
             <div className="journal">
-                <h1 className="mb3 lhs">Journal</h1>
+                <JournalName
+                    onClick={this.editJournalName}
+                    onKeyDown={this.updateJournalName}
+                    editingName={this.state.editingName}
+                >
+                    {this.state.name}
+                </JournalName>
                 <div className="r">
                     <div className="c6">
                         <EntryForm addEntry={this.addEntry} />
