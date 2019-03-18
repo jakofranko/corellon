@@ -34,16 +34,32 @@ class Journal extends Component {
             localStorage.setItem(this.id, JSON.stringify(this.state));
         }
 
-        this.editJournalName = this.editJournalName.bind(this);
+        this.handleJournalNameClick = this.handleJournalNameClick.bind(this);
         this.updateJournalName = this.updateJournalName.bind(this);
         this.addEntry = this.addEntry.bind(this);
         this.deleteEntry = this.deleteEntry.bind(this);
+        this.closeJournal = this.closeJournal.bind(this);
     }
 
-    editJournalName(e) {
+    handleJournalNameClick(e) {
         e.preventDefault();
+        if (this.state.open) {
+            this.setState({
+                editingName: true
+            });
+        } else {
+            this.setState({
+                open: true
+            });
+        }
+
+    }
+
+    closeJournal(e) {
+        e.preventDefault();
+        e.stopPropagation();
         this.setState({
-            editingName: true
+            open: false
         });
     }
 
@@ -69,7 +85,7 @@ class Journal extends Component {
 
         let events = [];
 
-        document.querySelectorAll('.new-event').forEach((el) => events.push(el.value));
+        journal.querySelectorAll('.new-event').forEach((el) => el.value &&  events.push(el.value));
 
         this.setState((currentState, props) => {
             const newEntries = currentState.entries.concat([{ events, timestamp }])
@@ -97,11 +113,14 @@ class Journal extends Component {
     render() {
         const entries = this.state.entries.map((entry, index) => <Entry key={generateId()} entry={entry} deleteEntry={this.deleteEntry} />);
         return (
-            <div className="journal">
+            <div className={`journal ${this.state.open ? 'open' : 'closed'}`}>
                 <JournalName
-                    onClick={this.editJournalName}
+                    canEdit={this.state.open}
+                    onClick={this.handleJournalNameClick}
                     onKeyDown={this.updateJournalName}
                     editingName={this.state.editingName}
+                    closeJournal={this.closeJournal}
+                    journalIsOpen={this.state.open}
                 >
                     {this.state.name}
                 </JournalName>

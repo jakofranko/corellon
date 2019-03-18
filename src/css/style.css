@@ -1,3 +1,11 @@
-.app {
-    
+.journal.closed > * {
+    display: none;
+}
+
+.journal.closed .journal-name {
+    display: block;
+}
+
+.journal-name {
+    cursor: pointer;
 }
