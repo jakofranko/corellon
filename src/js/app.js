@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { hot } from "react-hot-loader";
+
+import JournalList from './journal-list';
 import Journal from './journal';
 
 // The app will allow the user to load existing
@@ -13,15 +15,10 @@ class App extends Component {
 
     render() {
         const journalIds = Object.keys(localStorage).filter(key => key.match("journal-"));
-        const journals = journalIds.map(id => <Journal key={id} journalId={id} />);
 
         return (
             <div className="app m3">
-                {
-                    journals.length
-                    ? journals
-                    : <Journal />
-                }
+                <JournalList journalIds={journalIds} />
             </div>
         );
     }
