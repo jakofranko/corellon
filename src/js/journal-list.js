@@ -4,8 +4,9 @@ import Journal from './journal';
 
 class JournalList extends Component {
     render() {
-        const journals = this.props.journalIds.map(id => <Journal key={id} journalId={id} />);
-        
+        const journalIds = Object.keys(localStorage).filter(key => key.match("journal-"));
+        const journals = journalIds.map(id => <Journal key={id} journalId={id} />);
+
         return (
             <div className="journal-list">
                 {

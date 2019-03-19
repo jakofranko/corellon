@@ -12,13 +12,10 @@ import Journal from './journal';
 // TODO: Ability to create new journals and delete old ones
 // TODO: UI/UX for display and selection of new and old journals
 class App extends Component {
-
     render() {
-        const journalIds = Object.keys(localStorage).filter(key => key.match("journal-"));
-
         return (
             <div className="app m3">
-                <JournalList journalIds={journalIds} />
+                <JournalList />
             </div>
         );
     }
