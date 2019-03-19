@@ -25,7 +25,10 @@ class Journal extends Component {
             this.id = props.journalId;
         } else {
             this.state = {
-                entries: []
+                entries: [],
+                name: "Journal",
+                editingName: false,
+                open: false
             };
 
             this.id = `journal-${generateId()}`;
