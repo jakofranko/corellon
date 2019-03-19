@@ -31,15 +31,15 @@ class Entry extends Component {
 
     render() {
         return (
-            <div className="entry p3">
-                <h2 className="mb2 lhs">
+            <div className="entry pv3">
+                <h3 className="mb2 lhs">
                     {
                         this.state.timestamp
                         ? this.formatDate(this.state.timestamp)
                         : "Entry"
                     }
                     <button onClick={this.checkDelete}>Delete</button>
-                </h2>
+                </h3>
                 <ul>
                     {this.state.events.map((event) => <li key={event}>{event}</li>)}
                 </ul>

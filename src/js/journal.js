@@ -113,7 +113,7 @@ class Journal extends Component {
     render() {
         const entries = this.state.entries.map((entry, index) => <Entry key={generateId()} entry={entry} deleteEntry={this.deleteEntry} />);
         return (
-            <div className={`journal ${this.state.open ? 'open' : 'closed'}`}>
+            <div className={`journal mv3 ${this.state.open ? 'open' : 'closed ba p3 ac'}`}>
                 <JournalName
                     canEdit={this.state.open}
                     onClick={this.handleJournalNameClick}

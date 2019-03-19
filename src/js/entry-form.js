@@ -32,7 +32,7 @@ class EntryForm extends Component {
     render() {
         return (
             <div className="entry-form mb4">
-                <h2 className="mb2 lhs">New Entry</h2>
+                <h3 className="mb2 lhs">New Entry</h3>
                 <small><em>Use buttons, or Tab to add an additional event, enter to add the entry.</em></small>
                 <div className="new-events">
                     <input className="new-event p1" placeholder="Event" onKeyDown={this.handleKeyDown} />
