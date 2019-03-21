@@ -11,6 +11,7 @@ class JournalList extends Component {
         };
 
         this.addJournal = this.addJournal.bind(this);
+        this.deleteJournal = this.deleteJournal.bind(this);
     }
 
     addJournal(e) {
@@ -18,6 +19,11 @@ class JournalList extends Component {
         this.setState({
             addingJournal: true
         });
+    }
+
+    deleteJournal(journalId) {
+        localStorage.removeItem(journalId);
+        this.forceUpdate();
     }
 
     componentDidUpdate() {
@@ -31,7 +37,7 @@ class JournalList extends Component {
 
     render() {
         const journalIds = Object.keys(localStorage).filter(key => key.match("journal-"));
-        const journals = journalIds.map(id => <Journal key={id} journalId={id} />);
+        const journals = journalIds.map(id => <Journal key={id} journalId={id} deleteJournal={this.deleteJournal} />);
 
         return (
             <div className="journal-list">
@@ -39,9 +45,9 @@ class JournalList extends Component {
                 {
                     journals.length
                     ? journals
-                    : <Journal />
+                    : <Journal deleteJournal={this.deleteJournal} />
                 }
-                {this.state.addingJournal && <Journal />}
+                {this.state.addingJournal && <Journal deleteJournal={this.deleteJournal} />}
                 <button className="bg-blanc ba db wf f2 fwb pv2" onClick={this.addJournal}>New Journal +</button>
             </div>
         )

@@ -42,6 +42,7 @@ class Journal extends Component {
         this.addEntry = this.addEntry.bind(this);
         this.deleteEntry = this.deleteEntry.bind(this);
         this.closeJournal = this.closeJournal.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     handleJournalNameClick(e) {
@@ -112,6 +113,13 @@ class Journal extends Component {
         }, () => localStorage.setItem(this.id, JSON.stringify(this.state)));
     }
 
+    handleDelete(e) {
+        e.preventDefault();
+        const reallyDelete = confirm("Are you sure you want to delete this journal?");
+        if (reallyDelete)
+            this.props.deleteJournal(this.id);
+    }
+
 
     render() {
         const entries = this.state.entries.map((entry, index) => <Entry key={generateId()} entry={entry} deleteEntry={this.deleteEntry} />);
@@ -136,6 +144,8 @@ class Journal extends Component {
                         {entries}
                     </div>
                 </div>
+
+                <button className="mv2 p2 ba red b-red bg-blanc" onClick={this.handleDelete}>Delete Journal</button>
             </div>
         );
     }
