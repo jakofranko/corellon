@@ -1,6 +1,7 @@
 import React, { Component } from 'react' ;
 
 import JournalName from './journal-name';
+import Book from './book';
 import EntryForm from './entry-form';
 import Entry from './entry';
 import CorrelationTable from './correlation-table';

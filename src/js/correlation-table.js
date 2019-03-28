@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FilterEntriesWith from './filter-entries-with';
 import { phi, tableFor } from './phi';
 
 // TODO: Add sorting
@@ -17,7 +18,6 @@ class CorrelationTable extends Component {
         this.getUniqueEvents = this.getUniqueEvents.bind(this);
         this.setEntryFilters = this.setEntryFilters.bind(this);
         this.filterEntries = this.filterEntries.bind(this);
-        this.addEntryFilterWith = this.addEntryFilterWith.bind(this);
         this.addEntryFilterWithout = this.addEntryFilterWithout.bind(this);
     }
 
@@ -28,14 +28,8 @@ class CorrelationTable extends Component {
         });
     }
 
-    setEntryFilters(e) {
-        e.preventDefault();
-        const table = e.target.closest('.correlation-table');
-        const entriesWithEvents = table.querySelectorAll('.with-entry');
-        let entriesWith = [];
-
-        entriesWithEvents.forEach(event => event.value !== "" && entriesWith.push(event.value));
-
+    setEntryFilters(entriesWith) {
+        debugger;
         this.setState({
             entriesWith
         });
@@ -45,17 +39,13 @@ class CorrelationTable extends Component {
         // Return entries that only contain events in the
         // 'entriesWith' state array, and that do not contain events
         // in the 'entriesWithout' state array
+        debugger;
         return entries.filter(entry => {
-            // debugger;
             const entryHasEvents = this.state.entriesWith.every(eventWith => entry.events.includes(eventWith));
             const entryDoesNotHaveEvents = this.state.entriesWithout.every(eventWithout => entry.events.includes(eventWithout) === false);
 
             return entryHasEvents && entryDoesNotHaveEvents;
         });
-    }
-
-    addEntryFilterWith(e) {
-        e.preventDefault();
     }
 
     addEntryFilterWithout(e) {
@@ -101,14 +91,7 @@ class CorrelationTable extends Component {
                     {eventOptions}
                 </select>
 
-                <div className="filter-entries-with">
-                    <label className="db mb1">Only Entries with Events:</label>
-                    <select className="with-entry" onChange={this.setEntryFilters}>
-                        {eventOptions}
-                    </select>
-                </div>
-                <button className="add-entry-filter-with" onClick={this.addEntryFilterWith}>Add Filter</button>
-
+                <FilterEntriesWith eventOptions={eventOptions} setEntryFilters={this.setEntryFilters} />
 
                 <table>
                     <thead>
