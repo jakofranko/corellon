@@ -29,7 +29,6 @@ class CorrelationTable extends Component {
     }
 
     setEntryFilters(entriesWith) {
-        debugger;
         this.setState({
             entriesWith
         });
@@ -39,7 +38,6 @@ class CorrelationTable extends Component {
         // Return entries that only contain events in the
         // 'entriesWith' state array, and that do not contain events
         // in the 'entriesWithout' state array
-        debugger;
         return entries.filter(entry => {
             const entryHasEvents = this.state.entriesWith.every(eventWith => entry.events.includes(eventWith));
             const entryDoesNotHaveEvents = this.state.entriesWithout.every(eventWithout => entry.events.includes(eventWithout) === false);

@@ -29,7 +29,7 @@ class FilterEntriesWith extends Component {
         const filtersElements = e.target.closest(".filter-entries-with").querySelectorAll(".with-entry");
         let filters = []
 
-        filtersElements.forEach(filter => filters.push(filter.value));
+        filtersElements.forEach(filter => filter.value !== '' && filters.push(filter.value));
         this.setState({
             filters
         }, () => this.props.setEntryFilters(this.state.filters));
