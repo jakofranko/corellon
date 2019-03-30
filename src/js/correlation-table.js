@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FilterEntriesWith from './filter-entries-with';
+import FilterEntriesWithout from './filter-entries-without';
 import { phi, tableFor } from './phi';
 
 // TODO: Add sorting
@@ -18,7 +19,6 @@ class CorrelationTable extends Component {
         this.getUniqueEvents = this.getUniqueEvents.bind(this);
         this.setEntryFilters = this.setEntryFilters.bind(this);
         this.filterEntries = this.filterEntries.bind(this);
-        this.addEntryFilterWithout = this.addEntryFilterWithout.bind(this);
     }
 
     handleChange(e) {
@@ -28,9 +28,15 @@ class CorrelationTable extends Component {
         });
     }
 
-    setEntryFilters(entriesWith) {
-        this.setState({
-            entriesWith
+    setEntryFilters(ew, ewo) {
+        this.setState(currentState => {
+            const entriesWith = ew ? ew : currentState.entriesWith;
+            const entriesWithout = ewo ? ewo : currentState.entriesWithout;
+
+            return {
+                entriesWith,
+                entriesWithout
+            };
         });
     }
 
@@ -44,10 +50,6 @@ class CorrelationTable extends Component {
 
             return entryHasEvents && entryDoesNotHaveEvents;
         });
-    }
-
-    addEntryFilterWithout(e) {
-        e.preventDefault();
     }
 
     getUniqueEvents(entries) {
@@ -90,6 +92,7 @@ class CorrelationTable extends Component {
                 </select>
 
                 <FilterEntriesWith eventOptions={eventOptions} setEntryFilters={this.setEntryFilters} />
+                <FilterEntriesWithout eventOptions={eventOptions} setEntryFilters={this.setEntryFilters} />
 
                 <table>
                     <thead>
