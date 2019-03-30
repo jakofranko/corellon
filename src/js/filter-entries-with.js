@@ -42,7 +42,7 @@ class FilterEntriesWith extends Component {
                 <div className="filters">
                     {filters}
                 </div>
-                <button className="add-entry-filter-with p" onClick={this.addFilter}>Add Filter</button>
+                <button className="add-entry-filter-with p2" onClick={this.addFilter}>Add Filter</button>
             </div>
         );
     }
