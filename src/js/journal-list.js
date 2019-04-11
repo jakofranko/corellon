@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Journal from './journal';
 import testData from './test-data';
 
-if (!localStorage.getItem('journal-test-data')) localStorage.setItem('journal-test-data', JSON.stringify({ entries: testData }))
+if (build.mode === 'development' && !localStorage.getItem('journal-test-data')) localStorage.setItem('journal-test-data', JSON.stringify({ entries: testData }))
 
 class JournalList extends Component {
     constructor(props) {
