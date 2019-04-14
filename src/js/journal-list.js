@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Journal from './journal';
+import Book from './book';
 import testData from './test-data';
 
 if (build.mode === 'development' && !localStorage.getItem('journal-test-data')) localStorage.setItem('journal-test-data', JSON.stringify({ entries: testData }))
@@ -40,10 +41,12 @@ class JournalList extends Component {
 
     render() {
         const journalIds = Object.keys(localStorage).filter(key => key.match("journal-"));
-        const journals = journalIds.map(id => <Journal key={id} journalId={id} deleteJournal={this.deleteJournal} />);
+        const journals = build.mode === 'development'
+            ? journalIds.map((id, i) => <Book key={id} journalId={id} order={i} />)
+            : journalIds.map(id => <Journal key={id} journalId={id} deleteJournal={this.deleteJournal} />);
 
         return (
-            <div className="journal-list">
+            <div className="journal-list book-scene">
                 <h1 className="bb lhs pb2">Journals</h1>
                 {
                     journals.length

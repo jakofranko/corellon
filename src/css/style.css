@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:300,400,500,700,900&subset=hebrew,latin-ext');
+
 .journal.closed > * {
     display: none;
 }
@@ -26,9 +28,24 @@
     position: relative;
     transform-style: preserve-3d;
     transform: translateZ(calc(-1 * var(--cover-width) / 2));
+    transition: transform 1s;
+}
+.book:nth-child(odd) {
+    transform: rotateY(10deg);
+    z-index: 10;
+}
+.book:nth-child(even) {
+    transform: rotateY(-10deg);
+}
+.book:hover:nth-child(odd) {
+    transform: rotateY(-0.2deg);
+}
+.book:hover:nth-child(even) {
+    transform: rotateY(0.2deg);
 }
 .book-side {
-    background-color: rgba(150, 50, 0, 1);
+    background-image: url('/images/black-leather.jpg');
+    background-size: 115%;
     position: absolute;
     backface-visibility: hidden;
 }
@@ -56,10 +73,21 @@
 .book-top    { transform: rotateY( 90deg) translateZ(calc(var(--cover-height) / 2)); }
 .book-bottom { transform: rotateY(-90deg) translateZ(calc(var(--cover-height) / 2)); }
 
-.pages-bottom-top {
+/* To show thickness */
+.book-front:after {
+    /* background-color: magenta;
+    content: '';
+    height: 20px;
+    width: var(--cover-height);
+    position: absolute; */
+}
+.pages-top-bottom, .pages-right {
     background: repeating-linear-gradient(#333, #333 1px, #ddd 1px, #ddd 2px);
 }
 
-.spine-title {
+.spine {
     color: goldenrod;
+    font-family: 'Frank Ruhl Libre';
+    font-weight: 900;
+    text-shadow: rgba(255, 244, 162, 0.9) 1px 1px 0px, rgba(0, 0, 0, 0.7) -1px -1px 0px;
 }
