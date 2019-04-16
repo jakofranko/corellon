@@ -1,7 +1,6 @@
 import React, { Component } from 'react' ;
 
 import JournalName from './journal-name';
-import Book from './book';
 import EntryForm from './entry-form';
 import Entry from './entry';
 import CorrelationTable from './correlation-table';
@@ -126,7 +125,6 @@ class Journal extends Component {
         const entries = this.state.entries.map((entry, index) => <Entry key={generateId()} entry={entry} deleteEntry={this.deleteEntry} />);
         return (
             <div className={`journal mv3 ${this.state.open ? 'open' : 'closed ba p3 ac'}`}>
-                <Book title={this.state.name}/>
                 <JournalName
                     canEdit={this.state.open}
                     onClick={this.handleJournalNameClick}

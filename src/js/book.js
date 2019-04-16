@@ -42,16 +42,16 @@ class Book extends Component {
 
     render() {
         const bookStyle = {
-            zIndex: 100 - this.props.order
+            zIndex: this.props.order > this.props.totalJournals / 2 ? Math.floor(this.props.totalJournals / 2) - this.props.order : Math.floor(this.props.totalJournals / 2) + this.props.order
         };
 
         return (
-            <div className="book" style={bookStyle}>
+            <div className="book clearfix" style={bookStyle}>
                 <div className="book-side book-left spine">{this.state.name}</div>
                 <div className="book-side book-front"></div>
                 <div className="book-side book-back"></div>
-                <div className="book-side book-top pages-top-bottom"></div>
-                <div className="book-side book-bottom pages-top-bottom"></div>
+                <div className="book-side book-top pages-top pages-top-bottom"></div>
+                <div className="book-side book-bottom pages-bottom pages-top-bottom"></div>
                 <div className="book-side book-right pages-right"></div>
             </div>
         )
