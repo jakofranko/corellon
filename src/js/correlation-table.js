@@ -80,7 +80,12 @@ class CorrelationTable extends Component {
                     <td>{phi(table)}</td>
                 </tr>
             );
+        }).sort((row1, row2) => {
+            const phi1 = row1 ? row1.props.children[1].props.children : 0;
+            const phi2 = row2 ? row2.props.children[1].props.children : 0;
+            return phi2 - phi1;
         });
+
 
         eventOptions.unshift(<option key="null" value="">Select Event</option>);
 

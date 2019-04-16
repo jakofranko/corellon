@@ -11,6 +11,7 @@ class JournalList extends Component {
         super(props);
 
         this.state = {
+            journalIds: Object.keys(localStorage).filter(key => key.match("journal-")),
             addingJournal: false
         };
 
@@ -31,19 +32,19 @@ class JournalList extends Component {
     }
 
     componentDidUpdate() {
-        // If we just added a journal, switch this off
+        // If we just added a journal, switch this off and update journal ids
         if (this.state.addingJournal) {
             this.setState({
+                journalIds: Object.keys(localStorage).filter(key => key.match("journal-")),
                 addingJournal: false
             });
         }
     }
 
     render() {
-        const journalIds = Object.keys(localStorage).filter(key => key.match("journal-"));
-        const journals = build.mode === 'development'
-            ? journalIds.map((id, i) => <Book key={id} journalId={id} order={i} />)
-            : journalIds.map(id => <Journal key={id} journalId={id} deleteJournal={this.deleteJournal} />);
+        const journals = build.mode === 'foo'
+            ? this.state.journalIds.map((id, i) => <Book key={id} journalId={id} order={i} totalJournals={this.state.journalIds.length} />)
+            : this.state.journalIds.map(id => <Journal key={id} journalId={id} deleteJournal={this.deleteJournal} />);
 
         return (
             <div className="journal-list">
