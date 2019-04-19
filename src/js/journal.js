@@ -17,6 +17,7 @@ class Journal extends Component {
         if (data) {
             this.state = {
                 entries: data.entries,
+                filteredEntries: data.entries,
                 name: data.name || "Journal",
                 editingName: false,
                 open: false
@@ -39,6 +40,7 @@ class Journal extends Component {
 
         this.handleJournalNameClick = this.handleJournalNameClick.bind(this);
         this.updateJournalName = this.updateJournalName.bind(this);
+        this.updateFilteredEntries = this.updateFilteredEntries.bind(this);
         this.addEntry = this.addEntry.bind(this);
         this.deleteEntry = this.deleteEntry.bind(this);
         this.closeJournal = this.closeJournal.bind(this);
@@ -120,9 +122,14 @@ class Journal extends Component {
             this.props.deleteJournal(this.id);
     }
 
+    updateFilteredEntries(filteredEntries) {
+        this.setState({
+            filteredEntries: filteredEntries || this.state.entries
+        });
+    }
 
     render() {
-        const entries = this.state.entries.map((entry, index) => <Entry key={generateId()} entry={entry} deleteEntry={this.deleteEntry} />);
+        const entries = this.state.filteredEntries.map((entry, index) => <Entry key={generateId()} entry={entry} deleteEntry={this.deleteEntry} />);
         return (
             <div className={`journal mv3 ${this.state.open ? 'open' : 'closed ba p3 ac'}`}>
                 <JournalName
@@ -138,7 +145,7 @@ class Journal extends Component {
                 <div className="r">
                     <div className="c6">
                         <EntryForm addEntry={this.addEntry} />
-                        <CorrelationTable entries={this.state.entries} />
+                        <CorrelationTable entries={this.state.entries} updateFilteredEntries={this.updateFilteredEntries} />
                     </div>
                     <div className="c6">
                         {entries}

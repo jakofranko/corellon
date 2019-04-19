@@ -10,6 +10,7 @@ class CorrelationTable extends Component {
         super(props);
 
         this.state = {
+            filteredEntries: this.props.entries,
             correlationEvent: '',
             entriesWith: [],
             entriesWithout: []
@@ -18,7 +19,6 @@ class CorrelationTable extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.getUniqueEvents = this.getUniqueEvents.bind(this);
         this.setEntryFilters = this.setEntryFilters.bind(this);
-        this.filterEntries = this.filterEntries.bind(this);
     }
 
     handleChange(e) {
@@ -32,24 +32,19 @@ class CorrelationTable extends Component {
         this.setState(currentState => {
             const entriesWith = ew ? ew : currentState.entriesWith;
             const entriesWithout = ewo ? ewo : currentState.entriesWithout;
+            const filteredEntries = this.props.entries.filter(entry => {
+                const entryHasEvents = entriesWith.every(eventWith => entry.events.includes(eventWith));
+                const entryDoesNotHaveEvents = entriesWithout.every(eventWithout => entry.events.includes(eventWithout) === false);
+
+                return entryHasEvents && entryDoesNotHaveEvents;
+            });
 
             return {
                 entriesWith,
-                entriesWithout
+                entriesWithout,
+                filteredEntries
             };
-        });
-    }
-
-    filterEntries(entries) {
-        // Return entries that only contain events in the
-        // 'entriesWith' state array, and that do not contain events
-        // in the 'entriesWithout' state array
-        return entries.filter(entry => {
-            const entryHasEvents = this.state.entriesWith.every(eventWith => entry.events.includes(eventWith));
-            const entryDoesNotHaveEvents = this.state.entriesWithout.every(eventWithout => entry.events.includes(eventWithout) === false);
-
-            return entryHasEvents && entryDoesNotHaveEvents;
-        });
+        }, () => this.props.updateFilteredEntries(this.state.filteredEntries));
     }
 
     getUniqueEvents(entries) {
@@ -66,14 +61,13 @@ class CorrelationTable extends Component {
     }
 
     render() {
-        const entries = this.filterEntries(this.props.entries);
         const uniqueEvents = this.getUniqueEvents(this.props.entries);
-        const uniqueEventsFiltered = this.getUniqueEvents(entries);
+        const uniqueEventsFiltered = this.getUniqueEvents(this.state.filteredEntries);
         const eventOptions = uniqueEvents.map(event => <option key={event}>{event}</option>);
         const eventRows = uniqueEventsFiltered.map(event => {
             if (event === this.state.correlationEvent)
                 return null;
-            const table = tableFor(event, this.state.correlationEvent, entries);
+            const table = tableFor(event, this.state.correlationEvent, this.state.filteredEntries);
             return (
                 <tr key={event}>
                     <td>{event}</td>
