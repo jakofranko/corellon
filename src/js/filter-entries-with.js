@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import EventSelect from './event-select';
 import { generateId } from './utils';
 
 class FilterEntriesWith extends Component {
@@ -35,7 +36,7 @@ class FilterEntriesWith extends Component {
     }
 
     render() {
-        const filters = this.state.filters.map(filter => <select key={generateId()} defaultValue={filter} className="with-entry" onChange={this.handleChange}>{this.props.eventOptions}</select>)
+        const filters = this.state.filters.map(filter => <EventSelect key={generateId()} entries={this.props.entries} value={filter} className="with-entry" onChange={this.handleChange} />)
         return (
             <div className="filter-entries-with">
                 <label className="db mb1">Only Entries With Events:</label>

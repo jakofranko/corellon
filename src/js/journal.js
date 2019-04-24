@@ -2,6 +2,7 @@ import React, { Component } from 'react' ;
 
 import JournalName from './journal-name';
 import EntryForm from './entry-form';
+import FilterEntries from './filter-entries';
 import Entry from './entry';
 import CorrelationTable from './correlation-table';
 import { generateId } from './utils';
@@ -145,7 +146,8 @@ class Journal extends Component {
                 <div className="r">
                     <div className="c6">
                         <EntryForm addEntry={this.addEntry} />
-                        <CorrelationTable entries={this.state.entries} updateFilteredEntries={this.updateFilteredEntries} />
+                        <FilterEntries entries={this.state.entries} updateFilteredEntries={this.updateFilteredEntries} />
+                        <CorrelationTable entries={this.state.filteredEntries} />
                     </div>
                     <div className="c6">
                         {entries}
