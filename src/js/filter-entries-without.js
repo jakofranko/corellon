@@ -39,8 +39,8 @@ class FilterEntriesWithout extends Component {
         const filters = this.state.filters.map(filter => <EventSelect key={generateId()} entries={this.props.entries} value={filter} className="without-entry" onChange={this.handleChange} />)
         return (
             <div className="filter-entries-without">
-                <label className="db mb1">Only Entries Without Events:</label>
-                <div className="filters">
+                <label className="db mb1">Only Entries <strong>Without</strong> Events:</label>
+                <div className="filters mb2">
                     {filters}
                 </div>
                 <button className="add-entry-filter-without p2" onClick={this.addFilter}>Add Filter</button>

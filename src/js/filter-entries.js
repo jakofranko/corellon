@@ -36,10 +36,16 @@ class FilterEntries extends Component {
 
     render() {
         return (
-            <div className="filter-entries">
+            <div className="filter-entries mb4 p3 ba bsd">
                 <h2 className="mb2">Filter Entries</h2>
-                <FilterEntriesWith entries={this.props.entries} setEntryFilters={this.setEntryFilters} />
-                <FilterEntriesWithout entries={this.props.entries} setEntryFilters={this.setEntryFilters} />
+                <div className="r">
+                    <div className="c6">
+                        <FilterEntriesWith entries={this.props.entries} setEntryFilters={this.setEntryFilters} />
+                    </div>
+                    <div className="c6">
+                        <FilterEntriesWithout entries={this.props.entries} setEntryFilters={this.setEntryFilters} />
+                    </div>
+                </div>
             </div>
         )
     }

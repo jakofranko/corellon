@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const buttonInputClasses = "f5 lhc p2 bn";
+
 class EntryForm extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +13,7 @@ class EntryForm extends Component {
     addEvent(e) {
         e.preventDefault();
         let event = document.createElement("input");
-        event.classList = "new-event p1";
+        event.classList = `new-event ${buttonInputClasses}`;
         event.placeholder = "Event";
         event.onkeydown = this.handleKeyDown;
 
@@ -34,11 +36,11 @@ class EntryForm extends Component {
             <div className="entry-form mb4">
                 <h3 className="mb2 lhs">New Entry</h3>
                 <small><em>Use buttons, or Tab to add an additional event, enter to add the entry.</em></small>
-                <div className="new-events">
-                    <input className="new-event p1" placeholder="Event" onKeyDown={this.handleKeyDown} />
-                    <button className="add-event p2" onClick={this.addEvent}>+</button>
+                <div className="new-events mb2">
+                    <input className={`new-event ${buttonInputClasses}`} placeholder="Event" onKeyDown={this.handleKeyDown} />
+                    <button className={`add-event ${buttonInputClasses}`} onClick={this.addEvent}>+</button>
                 </div>
-                <button className="add-entry p2" onClick={this.props.addEntry}>Add Entry</button>
+                <button className="add-entry f5 p2" onClick={this.props.addEntry}>Add Entry</button>
             </div>
         );
     }

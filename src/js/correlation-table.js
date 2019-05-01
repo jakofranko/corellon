@@ -55,12 +55,12 @@ class CorrelationTable extends Component {
         });
 
         return (
-            <div className='correlation-table'>
+            <div className='correlation-table mb4 ac'>
                 <h2 className="mv2">Correlations</h2>
                 <label className="db mb1">Select Event to Display Correlations Against</label>
-                <EventSelect className="correlation-event db mb1" value={this.state.correlationEvent} entries={this.props.entries} onChange={this.handleChange} />
+                <EventSelect className="correlation-event db mb1 cn" value={this.state.correlationEvent} entries={this.props.entries} onChange={this.handleChange} />
 
-                <table>
+                <table className="cn">
                     <thead>
                         <tr>
                             <th>Event</th>

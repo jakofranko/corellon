@@ -143,13 +143,13 @@ class Journal extends Component {
                 >
                     {this.state.name}
                 </JournalName>
+                <FilterEntries entries={this.state.entries} updateFilteredEntries={this.updateFilteredEntries} />
                 <div className="r">
                     <div className="c6">
-                        <EntryForm addEntry={this.addEntry} />
-                        <FilterEntries entries={this.state.entries} updateFilteredEntries={this.updateFilteredEntries} />
                         <CorrelationTable entries={this.state.filteredEntries} />
                     </div>
                     <div className="c6">
+                        <EntryForm addEntry={this.addEntry} />
                         {entries}
                     </div>
                 </div>
