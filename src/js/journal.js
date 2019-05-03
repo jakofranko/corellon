@@ -28,6 +28,7 @@ class Journal extends Component {
         } else {
             this.state = {
                 entries: [],
+                filteredEntries: [],
                 name: "Journal",
                 editingName: false,
                 open: false

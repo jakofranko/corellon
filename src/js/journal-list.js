@@ -17,6 +17,7 @@ class JournalList extends Component {
 
         this.addJournal = this.addJournal.bind(this);
         this.deleteJournal = this.deleteJournal.bind(this);
+        this.refreshJournalIds = this.refreshJournalIds.bind(this);
     }
 
     addJournal(e) {
@@ -26,17 +27,24 @@ class JournalList extends Component {
         });
     }
 
+    refreshJournalIds(callback) {
+        this.setState({
+            journalIds: Object.keys(localStorage).filter(key => key.match("journal-"))
+        }, callback);
+    }
+
     deleteJournal(journalId) {
         localStorage.removeItem(journalId);
-        this.forceUpdate();
+        this.refreshJournalIds();
     }
 
     componentDidUpdate() {
         // If we just added a journal, switch this off and update journal ids
         if (this.state.addingJournal) {
-            this.setState({
-                journalIds: Object.keys(localStorage).filter(key => key.match("journal-")),
-                addingJournal: false
+            this.refreshJournalIds(() => {
+                this.setState({
+                    addingJournal: false
+                });
             });
         }
     }
