@@ -163,7 +163,7 @@ class Journal extends Component {
                 return entryB.timestamp - entryA.timestamp;
             })
             .map((entry, index) => (
-                <CSSTransition key={entry.id} classNames="entry" timeout={250}>
+                <CSSTransition key={entry.id} classNames="entry" timeout={500}>
                     <Entry entry={entry} deleteEntry={this.deleteEntry} />
                 </CSSTransition>
             ));
