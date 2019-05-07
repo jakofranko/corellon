@@ -17,9 +17,17 @@ class Journal extends Component {
         const data = storage ? JSON.parse(storage) : null;
 
         if (data) {
+            const entries = data.entries.map(entry => {
+                if (!entry.id)
+                    entry.id = generateId();
+
+                return entry;
+            });
             this.state = {
-                entries: data.entries,
-                filteredEntries: data.entries,
+                entries,
+                filteredEntries: entries,
+                entriesWith: [],
+                entriesWithout: [],
                 name: data.name || "Journal",
                 editingName: false,
                 open: false
@@ -30,6 +38,8 @@ class Journal extends Component {
             this.state = {
                 entries: [],
                 filteredEntries: [],
+                entriesWith: [],
+                entriesWithout: [],
                 name: "Journal",
                 editingName: false,
                 open: false
@@ -91,17 +101,21 @@ class Journal extends Component {
     addEntry(e) {
         const journal = e.target.closest(".journal");
         const timestamp = Date.now();
+        const id = generateId();
 
         let events = [];
 
-        journal.querySelectorAll('.new-event').forEach((el) => el.value &&  events.push(el.value));
+        journal.querySelectorAll('.new-event').forEach((el) => el.value && events.push(el.value));
 
         this.setState((currentState, props) => {
-            const newEntries = currentState.entries.concat([{ events, timestamp }])
+            const newEntries = currentState.entries.concat([{ events, timestamp, id }])
             return {
                 entries: newEntries
             };
-        }, () => localStorage.setItem(this.id, JSON.stringify(this.state)));
+        }, () => {
+            localStorage.setItem(this.id, JSON.stringify(this.state));
+            this.updateFilteredEntries();
+        });
 
         journal.querySelectorAll(".new-event").forEach((el) => el.remove());
     }
@@ -115,7 +129,10 @@ class Journal extends Component {
                     entries: currentState.entries
                 };
             }
-        }, () => localStorage.setItem(this.id, JSON.stringify(this.state)));
+        }, () => {
+            localStorage.setItem(this.id, JSON.stringify(this.state));
+            this.updateFilteredEntries();
+        });
     }
 
     handleDelete(e) {

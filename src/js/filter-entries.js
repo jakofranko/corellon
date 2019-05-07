@@ -8,8 +8,7 @@ class FilterEntries extends Component {
 
         this.state = {
             entriesWith: [],
-            entriesWithout: [],
-            filteredEntries: this.props.entries
+            entriesWithout: []
         }
 
         this.setEntryFilters = this.setEntryFilters.bind(this);
@@ -19,19 +18,12 @@ class FilterEntries extends Component {
         this.setState(currentState => {
             const entriesWith = ew ? ew : currentState.entriesWith;
             const entriesWithout = ewo ? ewo : currentState.entriesWithout;
-            const filteredEntries = this.props.entries.filter(entry => {
-                const entryHasEvents = entriesWith.every(eventWith => entry.events.includes(eventWith));
-                const entryDoesNotHaveEvents = entriesWithout.every(eventWithout => entry.events.includes(eventWithout) === false);
-
-                return entryHasEvents && entryDoesNotHaveEvents;
-            });
 
             return {
                 entriesWith,
-                entriesWithout,
-                filteredEntries
+                entriesWithout
             };
-        }, () => this.props.updateFilteredEntries(this.state.filteredEntries));
+        }, () => this.props.updateFilteredEntries(this.state.entriesWith, this.state.entriesWithout));
     }
 
     render() {

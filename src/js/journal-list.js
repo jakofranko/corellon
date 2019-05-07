@@ -55,7 +55,7 @@ class JournalList extends Component {
             : this.state.journalIds.map(id => <Journal key={id} journalId={id} deleteJournal={this.deleteJournal} />);
 
         return (
-            <div className="journal-list">
+            <div className="journal-list cn mv5 vw6">
                 <h1 className="bb lhs pb2">Journals</h1>
                 {build.mode === 'foo'
                     ? <div className="book-scene clearfix">{journals}</div>
