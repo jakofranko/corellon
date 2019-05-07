@@ -1,4 +1,5 @@
 import React, { Component } from 'react' ;
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import JournalName from './journal-name';
 import EntryForm from './entry-form';
@@ -124,14 +125,31 @@ class Journal extends Component {
             this.props.deleteJournal(this.id);
     }
 
-    updateFilteredEntries(filteredEntries) {
+    updateFilteredEntries(entriesWith = this.state.entriesWith, entriesWithout = this.state.entriesWithout) {
+        const filteredEntries = this.state.entries.filter(entry => {
+            const entryHasEvents = entriesWith.every(eventWith => entry.events.includes(eventWith));
+            const entryDoesNotHaveEvents = entriesWithout.every(eventWithout => entry.events.includes(eventWithout) === false);
+
+            return entryHasEvents && entryDoesNotHaveEvents;
+        });
+
         this.setState({
+            entriesWith,
+            entriesWithout,
             filteredEntries: filteredEntries || this.state.entries
         });
     }
 
     render() {
-        const entries = this.state.filteredEntries.map((entry, index) => <Entry key={generateId()} entry={entry} deleteEntry={this.deleteEntry} />);
+        const entries = this.state.filteredEntries
+            .sort((entryA, entryB) => {
+                return entryB.timestamp - entryA.timestamp;
+            })
+            .map((entry, index) => (
+                <CSSTransition key={entry.id} classNames="entry" timeout={250}>
+                    <Entry entry={entry} deleteEntry={this.deleteEntry} />
+                </CSSTransition>
+            ));
         return (
             <div className={`journal mv3 ${this.state.open ? 'open' : 'closed ba p3 ac'}`}>
                 <JournalName
@@ -151,7 +169,10 @@ class Journal extends Component {
                     </div>
                     <div className="c6">
                         <EntryForm addEntry={this.addEntry} />
-                        {entries}
+
+                        <TransitionGroup>
+                            {entries}
+                        </TransitionGroup>
                     </div>
                 </div>
 

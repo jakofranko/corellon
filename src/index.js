@@ -7,5 +7,6 @@ import App from './js/app';
 // Styles
 import 'macian';
 import './css/style.css';
+import './css/animations.css';
 
 render(<App />, document.getElementById("dashboard"))
