@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Journal from './journal';
 import Book from './book';
 import testData from './test-data';
 
-if (build.mode === 'development' && !localStorage.getItem('journal-test-data')) localStorage.setItem('journal-test-data', JSON.stringify({ entries: testData }))
+if (build.mode === 'development' && !localStorage.getItem('journal-test-data'))
+    localStorage.setItem('journal-test-data', JSON.stringify({ entries: testData }));
+
+const journalPrefix = "journal-";
 
 class JournalList extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            journalIds: Object.keys(localStorage).filter(key => key.match("journal-")),
+            journalIds: Object.keys(localStorage).filter(key => key.match(journalPrefix)),
             addingJournal: false
         };
 
@@ -29,7 +33,7 @@ class JournalList extends Component {
 
     refreshJournalIds(callback) {
         this.setState({
-            journalIds: Object.keys(localStorage).filter(key => key.match("journal-"))
+            journalIds: Object.keys(localStorage).filter(key => key.match(journalPrefix))
         }, callback);
     }
 
