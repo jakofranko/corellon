@@ -180,7 +180,7 @@ class Journal extends Component {
                     {this.state.name}
                 </JournalName>
                 <FilterEntries entries={this.state.entries} updateFilteredEntries={this.updateFilteredEntries} />
-                <div className="r">
+                <div className="r oxh">
                     <div className="c6">
                         <CorrelationTable entries={this.state.filteredEntries} />
                     </div>

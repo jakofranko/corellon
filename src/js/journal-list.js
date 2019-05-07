@@ -72,7 +72,7 @@ class JournalList extends Component {
             ));
 
         return (
-            <div className="journal-list cn mv5 vw6">
+            <div className="journal-list cn mv5 vw6-l vw8-m vw-s oxh">
                 <h1 className="bb lhs pb2">Journals</h1>
                 <TransitionGroup>
                     {journals}
