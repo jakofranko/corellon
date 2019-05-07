@@ -50,19 +50,29 @@ class JournalList extends Component {
     }
 
     render() {
-        const journals = build.mode === 'foo'
-            ? this.state.journalIds.map((id, i) => <Book key={id} journalId={id} order={i} totalJournals={this.state.journalIds.length} />)
-            : this.state.journalIds.map(id => <Journal key={id} journalId={id} deleteJournal={this.deleteJournal} />);
+        const journals = this.state.journalIds
+            .sort((idA, idB) => {
+                const suffixA = Number(idA.replace(journalPrefix, ''));
+                const suffixB = Number(idB.replace(journalPrefix, ''));
+                if (Number.isNaN(suffixA))
+                    return -1;
+                if (Number.isNaN(suffixB))
+                    return 1;
+
+                return suffixB - suffixA;
+            })
+            .map(id => (
+                <CSSTransition timeout={500} classNames="journal" key={id}>
+                    <Journal key={id} journalId={id} deleteJournal={this.deleteJournal} />
+                </CSSTransition>
+            ));
 
         return (
             <div className="journal-list cn mv5 vw6">
                 <h1 className="bb lhs pb2">Journals</h1>
-                {build.mode === 'foo'
-                    ? <div className="book-scene clearfix">{journals}</div>
-                    : journals.length
-                    ? journals
-                    : <Journal deleteJournal={this.deleteJournal} />
-                }
+                <TransitionGroup>
+                    {journals}
+                </TransitionGroup>
                 {this.state.addingJournal && <Journal deleteJournal={this.deleteJournal} />}
                 <button className="bg-blanc ba db wf f2 fwb pv2" onClick={this.addJournal}>New Journal +</button>
             </div>

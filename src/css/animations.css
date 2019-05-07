@@ -1,22 +1,31 @@
-.entry {
-    transition: max-height 0.25s ease-in, opacity 0.2s ease-in;
+.journal, .entry {
+    transition-property: max-height, opacity, left;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 0, 0, 0.2s;
 }
-.entry-enter {
+.journal-enter, .entry-enter {
+    position: relative;
+    left: -1500px;
     max-height: 0;
     opacity: 0;
 }
 
-.entry-enter.entry-enter-active {
+.journal-enter.journal-enter-active, .entry-enter.entry-enter-active {
+    left: 0;
     max-height: 1000px;
     opacity: 1;
 }
 
-.entry-exit {
+.journal-exit, .entry-exit {
+    position: relative;
+    left: 0;
     max-height: 1000px;
     opacity: 1;
 }
 
-.entry-exit.entry-exit-active {
+.journal-exit.journal-exit-active, .entry-exit.entry-exit-active {
+    left: 1500px;
     max-height: 0;
     opacity: 0;
 }

@@ -45,7 +45,7 @@ class Journal extends Component {
                 open: false
             };
 
-            this.id = `journal-${generateId()}`;
+            this.id = `journal-${Date.now()}`;
 
             // Save this journal
             localStorage.setItem(this.id, JSON.stringify(this.state));
