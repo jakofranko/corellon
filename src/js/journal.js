@@ -8,7 +8,6 @@ import Entry from './entry';
 import CorrelationTable from './correlation-table';
 import { generateId } from './utils';
 
-// TODO: Add journal names and UI/UX for changing names
 class Journal extends Component {
     constructor(props) {
         super(props);
@@ -136,10 +135,10 @@ class Journal extends Component {
     }
 
     handleDelete(e) {
+        debugger
         e.preventDefault();
         const reallyDelete = confirm("Are you sure you want to delete this journal?");
-        if (reallyDelete)
-            this.props.deleteJournal(this.id);
+        if (reallyDelete) this.props.deleteJournal(this.id);
     }
 
     updateFilteredEntries(entriesWith = this.state.entriesWith, entriesWithout = this.state.entriesWithout) {
@@ -176,24 +175,22 @@ class Journal extends Component {
                     editingName={this.state.editingName}
                     closeJournal={this.closeJournal}
                     journalIsOpen={this.state.open}
+                    deleteJournal={this.handleDelete}
                 >
                     {this.state.name}
                 </JournalName>
-                <FilterEntries entries={this.state.entries} updateFilteredEntries={this.updateFilteredEntries} />
                 <div className="r oxh">
-                    <div className="c6">
-                        <CorrelationTable entries={this.state.filteredEntries} />
-                    </div>
-                    <div className="c6">
+                    <div className="c6 pr2">
                         <EntryForm addEntry={this.addEntry} />
-
                         <TransitionGroup>
                             {entries}
                         </TransitionGroup>
                     </div>
+                    <div className="c6">
+                        <FilterEntries entries={this.state.entries} updateFilteredEntries={this.updateFilteredEntries} />
+                        <CorrelationTable entries={this.state.filteredEntries} />
+                    </div>
                 </div>
-
-                <button className="mv2 p2 ba red b-red bg-blanc" onClick={this.handleDelete}>Delete Journal</button>
             </div>
         );
     }

@@ -38,7 +38,7 @@ class Entry extends Component {
                         ? this.formatDate(this.state.timestamp)
                         : "Entry"
                     }
-                    <button className="ml1 p1 vm ba red b-red bg-blanc" onClick={this.checkDelete}>Delete</button>
+                    <button className="rf ml1 p1 vm ba red b-red bg-blanc" onClick={this.checkDelete}>Delete Entry</button>
                 </h3>
                 <ul>
                     {this.state.events.map((event) => <li key={event}>{event}</li>)}

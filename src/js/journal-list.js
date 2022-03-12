@@ -5,8 +5,9 @@ import Journal from './journal';
 import Book from './book';
 import testData from './test-data';
 
-if (build.mode === 'development' && !localStorage.getItem('journal-test-data'))
+if (build.mode === 'development' && !localStorage.getItem('journal-test-data')) {
     localStorage.setItem('journal-test-data', JSON.stringify({ entries: testData }));
+}
 
 const journalPrefix = "journal-";
 
