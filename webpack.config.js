@@ -59,7 +59,7 @@ module.exports = function(env, args) {
                     'theme-color': '#444444',
                     'msapplication-navbutton-color': '#444444',
                     'apple-mobile-web-app-status-bar-style': 'black-translucent',
-                    'msapplication-starturl': '/',
+                    'msapplication-starturl': '/corellon',
                     'viewport': 'width=device-width, initial-scale=1, shrink-to-fit=no'
                 }
             }),
