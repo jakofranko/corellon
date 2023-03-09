@@ -36,7 +36,7 @@ class FilterEntriesWith extends Component {
     }
 
     render() {
-        const filters = this.state.filters.map(filter => <EventSelect key={generateId()} entries={this.props.entries} value={filter} className="with-entry" onChange={this.handleChange} />)
+        const filters = this.state.filters.map(filter => <EventSelect key={generateId()} entries={this.props.entries} value={filter} className="with-entry w9" onChange={this.handleChange} />)
         return (
             <div className="filter-entries-with">
                 <label className="db mb1">Only Entries <strong>With</strong> Events:</label>
