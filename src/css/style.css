@@ -45,7 +45,7 @@
     transform: rotateY(0.2deg);
 }
 .book-side {
-    background-image: url('/images/black-leather.jpg');
+    background-image: url('/public/assets/black-leather.jpg');
     background-size: 115%;
     position: absolute;
 }
