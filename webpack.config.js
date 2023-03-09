@@ -11,6 +11,13 @@ const mode = process.env.NODE_ENV || 'development';
 module.exports = function(env, args) {
     return {
         mode,
+        devtool: 'inline-source-map',
+        entry: './src/index.js',
+        output: {
+            filename: 'main.js',
+            path: path.resolve(__dirname, 'docs'),
+            clean: true
+        },
         module: {
             rules: [
                 {
@@ -27,11 +34,6 @@ module.exports = function(env, args) {
         },
         resolve: {
             extensions: ['*', '.js', '.jsx']
-        },
-        output: {
-            path: path.resolve(__dirname, "dist/"),
-            publicPath: "/dist/",
-            filename: "bundle.js"
         },
         devServer: {
             port: 3000,
