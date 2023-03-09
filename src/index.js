@@ -9,4 +9,4 @@ import 'macian';
 import './css/style.css';
 import './css/animations.css';
 
-render(<App />, document.getElementById("dashboard"))
+render(<App />, document.body)
